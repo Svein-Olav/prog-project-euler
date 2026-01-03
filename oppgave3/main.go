@@ -19,37 +19,57 @@ func main() {
 		}
     }
 
+	FindPrimFactorsUpTo(500)
+
 }
 
-func FinnAllePrimtallOpptil(number int) []int {
-	var primtallsFaktorer []int
-	
+func gdc(){
+	primeFactors :=  FindPrimFactorsUpTo(500)
+	tall := 6000
+
+	for len(primeFactors) > 0 {
+		primeNumber := primeFactors[0]
+
+		if (tall % primeNumber == 0) {
+			
+		}
+
+
+	}
+
+
+
+}
+
+
+
+func FindPrimFactorsUpTo(number int) []int {
+	var primeFactors []int
+
 	for i := 1; i <= number; i += 1 {
 		if IsAPrime(i) {
-			primtallsFaktorer = append(primtallsFaktorer, i)
+			primeFactors = append(primeFactors, i)
 		}
 	}
 	
-	fmt.Println(primtallsFaktorer)
-	return primtallsFaktorer
+	fmt.Println(primeFactors)
+	return primeFactors
+
 }
 
 func IsAPrime(i int) bool {
 	returnValue := true
 
-	//if i == 2 {
-	//	returnValue = true;
-	// }
-	 
-	 for j := 2; j < i; j += 1 {
-		//fmt.Printf("i = %v: j = %v \n",i,j)
+	if (i == 1) { return false}
+		 
+	for j := 2; j < i; j += 1 {		
 		if(i % j == 0) {
-			//fmt.Println("har ingen rest")
+			// har ingen rest, altså ikke et primtall
 			returnValue = false
 			break
 		} else {
-			returnValue = true
-			//fmt.Println("har rest")
+			// har en rest 
+			returnValue = true			
 		}
 	} 
     return returnValue
