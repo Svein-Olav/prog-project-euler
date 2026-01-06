@@ -3,44 +3,51 @@ package main
 import "fmt"
 
 
-// lag en funksjon som sorterer en liste
+// Solution for Project Euler problem 3
 func main() {
+	const numberToFactor = 600851475143
+
+	fmt.Println("Hello, this is my anwser. The number to factor is ", numberToFactor)
+
+	fmt.Println("Finding prime factors...")
 	
-	fmt.Println("Hello ")
-	
-	gdc()
+	listOfFactors := GreatestDivisorCalculator(numberToFactor)
+
+	fmt.Println("**************")
+	fmt.Println("List of primes factors", listOfFactors)
+	sum := MultiplyFactors(listOfFactors)
+	fmt.Println("Product of prims", sum, " should be equal to ", numberToFactor)
+
+	fmt.Println("Larges factor", listOfFactors[len(listOfFactors)-1])
+
 }
 
-func gdc(){
+// Greates Divisor Calculator. Algritme to find prime factors
+// returns a list of prime factors for the number 600851475143
+func GreatestDivisorCalculator(numberToFactor int) []int {
 
-	const number = 600851475143
-	
-	primes := FindPrimFactorsUpTo(number)
-	primeFactors := []int{} 
-	tall := number
+	listOfPrimes := FindListOfPrimNumbersUpTo(numberToFactor)
+	collectedPrimeFactors := []int{} 
+	tall := numberToFactor
 
-	for len(primes) > 0 {
+	for len(listOfPrimes) > 0 {
 		
-		primeNumber := primes[0]
+		primeNumber := listOfPrimes[0]
 
 		if (tall % primeNumber == 0) {
 			tall = tall / primeNumber
 
-			primeFactors = append(primeFactors, primeNumber)
+			collectedPrimeFactors = append(collectedPrimeFactors, primeNumber)
 			
 		} else {
-			primes = primes[1:]
+			listOfPrimes = listOfPrimes[1:]
 		}
-	}
+	}	
 
-	fmt.Println("**************")
-	fmt.Println("List of primes factors", primeFactors)
-	sum := MultiplyFactors(primeFactors)
-	fmt.Println("Product of prims", sum )
-
-	fmt.Println("Larges factor", primeFactors[len(primeFactors)-1])
+	return collectedPrimeFactors
 }
 
+// Multiplies all numbers in a list and returns the product
 func MultiplyFactors(numbers []int) int{
 	product := 1
 
@@ -53,34 +60,33 @@ func MultiplyFactors(numbers []int) int{
 }
 
 
-
-func FindPrimFactorsUpTo(number int) []int {
+// Finds all prime numbers up to a given number
+func FindListOfPrimNumbersUpTo(number int) []int {
 	var primeFactors []int
 
-	for i := 1; i*i <= number; i += 1 {
-		fmt.Println("Numbers tested",i," . Primenumbers", len(primeFactors))
-		if IsAPrime(i) {
-			primeFactors = append(primeFactors, i)
+	for counter := 1; counter*counter <= number; counter += 1 {		
+		if IsAPrime(counter) {
+			primeFactors = append(primeFactors, counter)
 		}
 	}
-	
-	fmt.Println(primeFactors)
+		
 	return primeFactors
 
 }
 
+// Checks if a number is a prime number
 func IsAPrime(i int) bool {
 	returnValue := true
 
 	if (i == 1) { return false}
 		 
 	for j := 2; j*j < i; j += 1 {		
-		if(i % j == 0) {
-			// har ingen rest, altså ikke et primtall
+		if(i % j == 0) {			
+			// has a divisor
 			returnValue = false
 			break
 		} else {
-			// har en rest 
+			// does not have a divisor 
 			returnValue = true			
 		}
 	} 
